@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Account | SERRA{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 min-h-[70vh]">
+    <div class="flex flex-col lg:flex-row gap-12">
+        <!-- Sidebar Navigation -->
+        <div class="w-full lg:w-1/4">
+            <div class="bg-serra-bg/50 rounded-3xl p-8 border border-serra-primary/60 sticky top-28 hidden lg:block">
+                <div class="mb-8 pb-8 border-b border-serra-primary/40 text-center">
+                    <div class="w-20 h-20 rounded-full bg-serra-text text-white flex items-center justify-center text-2xl font-serif mx-auto mb-4">
+                        {{ user.first_name|default:user.username|make_list|first|upper }}
+                    </div>
+                    <h2 class="text-xl font-serif text-serra-text">{{ user.get_full_name|default:user.username }}</h2>
+                    <p class="text-xs text-serra-text/50 mt-1">{{ user.email }}</p>
+                </div>
+                
+                <nav class="space-y-2">
+                    <a href="{% url 'dashboard' %}" class="flex items-center space-x-3 px-4 py-3 bg-serra-text text-white rounded-xl transition-colors">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                        <span class="text-sm font-medium tracking-wide">Overview</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-3 text-serra-text/60 hover:text-serra-text hover:bg-serra-primary/20 rounded-xl transition-colors">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                        <span class="text-sm font-medium tracking-wide">Order History</span>
+                    </a>
+                    <a href="{% url 'wishlist' %}" class="flex items-center space-x-3 px-4 py-3 text-serra-text/60 hover:text-serra-text hover:bg-serra-primary/20 rounded-xl transition-colors">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                        <span class="text-sm font-medium tracking-wide">Wishlist</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-4 py-3 text-serra-text/60 hover:text-serra-text hover:bg-serra-primary/20 rounded-xl transition-colors">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                        <span class="text-sm font-medium tracking-wide">Payment Methods</span>
+                    </a>
+                </nav>
+                
+                <div class="mt-8 pt-8 border-t border-serra-primary/40">
+                    <a href="{% url 'logout' %}" class="flex items-center space-x-3 px-4 py-2 text-red-500 hover:text-red-700 transition-colors">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                        <span class="text-sm font-medium tracking-wide">Sign Out</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu Dropdown (visible only on small screens) -->
+            <div class="lg:hidden mb-8">
+                <select onchange="window.location.href=this.value" class="w-full p-4 rounded-xl border border-serra-primary bg-serra-bg text-serra-text text-sm font-medium appearance-none focus:outline-none focus:border-serra-accent">
+                    <option value="{% url 'dashboard' %}" selected>Overview</option>
+                    <option value="#">Order History</option>
+                    <option value="{% url 'wishlist' %}">Wishlist</option>
+                    <option value="#">Payment Methods</option>
+                    <option value="{% url 'logout' %}">Sign Out</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="w-full lg:w-3/4">
+            <h1 class="text-3xl md:text-4xl font-serif text-serra-text mb-8">Account Overview</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <!-- Profile Box -->
+                <div class="p-8 border border-serra-primary/60 rounded-3xl bg-white card-shadow">
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 class="text-lg font-serif text-serra-text">Profile Details</h3>
+                        <a href="#" class="text-xs font-semibold uppercase tracking-widest text-serra-text/50 hover:text-serra-accent transition-colors">Edit</a>
+                    </div>
+                    <div class="space-y-4 text-sm">
+                        <div>
+                            <span class="block text-xs text-serra-text/50 uppercase tracking-widest mb-1">Name</span>
+                            <span class="font-medium text-serra-text">{{ user.get_full_name|default:user.username }}</span>
+                        </div>
+                        <div>
+                            <span class="block text-xs text-serra-text/50 uppercase tracking-widest mb-1">Email</span>
+                            <span class="font-medium text-serra-text">{{ user.email }}</span>
+                        </div>
+                        <div>
+                            <span class="block text-xs text-serra-text/50 uppercase tracking-widest mb-1">Password</span>
+                            <span class="font-medium text-serra-text">••••••••</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Address Box -->
+                <div class="p-8 border border-serra-primary/60 rounded-3xl bg-white card-shadow">
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 class="text-lg font-serif text-serra-text">Default Address</h3>
+                        <a href="#" class="text-xs font-semibold uppercase tracking-widest text-serra-text/50 hover:text-serra-accent transition-colors">Edit</a>
+                    </div>
+                    {% if user.default_address %}
+                        <div class="text-sm text-serra-text/80 leading-relaxed font-light">
+                            <p class="font-medium text-serra-text mb-1">{{ user.get_full_name }}</p>
+                            <p>{{ user.default_address.street }}</p>
+                            <p>{{ user.default_address.city }}, {{ user.default_address.state }} {{ user.default_address.zip_code }}</p>
+                            <p>{{ user.default_address.country }}</p>
+                        </div>
+                    {% else %}
+                        <div class="flex flex-col items-center justify-center h-full pb-8">
+                            <svg class="w-8 h-8 text-serra-text/20 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                            <p class="text-sm font-light text-serra-text/50 text-center mb-4">No default address set.</p>
+                            <a href="#" class="btn-luxury px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all">Add Address</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Recent Orders Box -->
+            <div class="p-8 border border-serra-primary/60 rounded-3xl bg-white card-shadow">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 class="text-xl font-serif text-serra-text">Recent Orders</h3>
+                    <a href="#" class="text-xs font-semibold uppercase tracking-widest text-serra-text/50 hover:text-serra-accent transition-colors">View All</a>
+                </div>
+                
+                {% if recent_orders %}
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-xs text-serra-text/50 uppercase tracking-widest border-b border-serra-primary/40">
+                                    <th class="pb-4 font-semibold">Order</th>
+                                    <th class="pb-4 font-semibold">Date</th>
+                                    <th class="pb-4 font-semibold">Status</th>
+                                    <th class="pb-4 font-semibold text-right">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm divide-y divide-serra-primary/20">
+                                {% for order in recent_orders %}
+                                    <tr class="group hover:bg-serra-primary/10 transition-colors">
+                                        <td class="py-4 font-medium"><a href="#" class="hover:text-serra-accent">#{{ order.id }}</a></td>
+                                        <td class="py-4 text-serra-text/70">{{ order.created_at|date:"M d, Y" }}</td>
+                                        <td class="py-4">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest 
+                                                {% if order.status == 'Delivered' %}bg-green-100 text-green-800
+                                                {% elif order.status == 'Processing' %}bg-blue-100 text-blue-800
+                                                {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                                {{ order.status }}
+                                            </span>
+                                        </td>
+                                        <td class="py-4 font-medium text-right">₹{{ order.total_amount }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="flex flex-col items-center justify-center py-10">
+                        <svg class="w-12 h-12 text-serra-text/20 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                        <p class="text-sm font-light text-serra-text/50 text-center mb-6 max-w-sm">You haven't placed any orders yet. Discover our collection and find your perfect piece.</p>
+                        <a href="{% url 'home' %}" class="btn-luxury px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all">Shop Jewelry</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

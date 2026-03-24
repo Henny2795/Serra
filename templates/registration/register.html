@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Account | SERRA{% endblock %}
+
+{% block content %}
+<div class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-12">
+    <!-- Blurred Jewelry Background Image -->
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-br from-serra-bg/95 via-serra-bg/90 to-serra-primary/80 z-10 backdrop-blur-md"></div>
+        <!-- Using a different, matching Unsplash image -->
+        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=1900" alt="Jewelry Background" class="object-cover w-full h-full opacity-40 mix-blend-multiply">
+    </div>
+
+    <!-- Glassmorphism Card Wrapper -->
+    <div class="relative z-10 w-full max-w-lg px-4 sm:px-0">
+        <div class="glass-pane rounded-3xl p-8 sm:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.05)] border border-white/50 animate-fade-in-up">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-serif text-serra-text mb-2">Join SERRA</h1>
+                <p class="text-serra-text/60 font-light text-sm">Create an account for exclusive access and faster checkout.</p>
+            </div>
+
+            <form method="post" action="{% url 'register' %}" class="space-y-5">
+                {% csrf_token %}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="floating-label-group">
+                        <input type="text" id="first_name" name="first_name" class="floating-label-input input-luxury w-full rounded-xl text-serra-text bg-white/60 focus:bg-white" placeholder=" " required>
+                        <label for="first_name" class="floating-label">First Name</label>
+                    </div>
+                    <div class="floating-label-group">
+                        <input type="text" id="last_name" name="last_name" class="floating-label-input input-luxury w-full rounded-xl text-serra-text bg-white/60 focus:bg-white" placeholder=" " required>
+                        <label for="last_name" class="floating-label">Last Name</label>
+                    </div>
+                </div>
+
+                <div class="floating-label-group">
+                    <input type="email" id="email" name="email" class="floating-label-input input-luxury w-full rounded-xl text-serra-text bg-white/60 focus:bg-white" placeholder=" " required>
+                    <label for="email" class="floating-label">Email Address</label>
+                </div>
+
+                <div class="floating-label-group relative">
+                    <input type="password" id="password" name="password" class="floating-label-input input-luxury w-full rounded-xl text-serra-text bg-white/60 focus:bg-white pr-10" placeholder=" " required>
+                    <label for="password" class="floating-label">Create Password</label>
+                    
+                    <!-- Show/Hide Password -->
+                    <button type="button" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-serra-text/40 hover:text-serra-accent transition-colors" onclick="const p=document.getElementById('password'); if(p.type==='password'){p.type='text';}else{p.type='password';}">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                    </button>
+                    <!-- Validations -->
+                    <div class="absolute -bottom-5 w-full text-[10px] text-serra-text/40 tracking-wider">Must be at least 8 characters.</div>
+                </div>
+
+                <div class="flex items-start mt-6 pt-4">
+                    <input id="terms" name="terms" type="checkbox" required class="h-4 w-4 mt-0.5 text-serra-text focus:ring-serra-accent border-gray-300 rounded shrink-0">
+                    <label for="terms" class="ml-3 block text-xs font-light text-serra-text leading-tight">
+                        I agree to SERRA's <a href="#" class="underline hover:text-serra-accent">Terms of Service</a> and <a href="#" class="underline hover:text-serra-accent">Privacy Policy</a>.
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full btn-luxury text-center py-4 rounded-xl text-sm font-bold uppercase tracking-widest transition-all mt-6">
+                    Create Account
+                </button>
+            </form>
+            
+            <p class="mt-8 text-center text-xs text-serra-text/60 font-light">
+                Already have an account? <a href="{% url 'login' %}" class="font-semibold text-serra-text hover:text-serra-accent underline decoration-serra-primary hover:decoration-serra-accent transition-colors uppercase tracking-widest pl-1">Sign In</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

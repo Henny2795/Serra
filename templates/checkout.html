@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Checkout | SERRA{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 min-h-[70vh]">
+    <!-- Breadcrumbs -->
+    <nav class="flex text-sm text-serra-text/50 mb-10 font-light justify-center" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-4">
+            <li><a href="{% url 'cart_detail' %}" class="hover:text-serra-accent transition-colors">Cart</a></li>
+            <li><span class="w-8 h-[1px] bg-serra-primary block"></span></li>
+            <li class="text-serra-text font-medium" aria-current="page">Information & Shipping</li>
+            <li><span class="w-8 h-[1px] bg-serra-primary block"></span></li>
+            <li class="text-serra-text/30">Payment</li>
+        </ol>
+    </nav>
+
+    <div class="flex flex-col lg:flex-row-reverse gap-12 lg:gap-20">
+        <!-- Order Summary (Right Sidebar on Desktop) -->
+        <div class="w-full lg:w-5/12">
+            <div class="bg-serra-bg/50 rounded-3xl p-8 lg:p-10 border border-serra-primary/60 sticky top-28">
+                <h2 class="text-xl font-serif text-serra-text mb-8">Order Summary</h2>
+                
+                <div class="divide-y divide-serra-primary/40 mb-8 max-h-[40vh] overflow-y-auto pr-2">
+                    {% for item in cart_items %}
+                        <div class="py-4 flex items-center space-x-4">
+                            <div class="relative w-16 h-20 rounded-lg overflow-hidden bg-white shrink-0 border border-serra-primary text-center flex items-center justify-center">
+                                {% if item.product.image %}
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="object-cover w-full h-full">
+                                {% else %}
+                                    <span class="text-[10px] text-serra-text/30">No Img</span>
+                                {% endif %}
+                                <span class="absolute -top-2 -right-2 bg-serra-text text-white text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center z-10">{{ item.quantity }}</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-sm font-medium text-serra-text">{{ item.product.name }}</h3>
+                                <p class="text-[10px] text-serra-text/50 uppercase tracking-widest mt-1">{{ item.product.category.name }}</p>
+                            </div>
+                            <div class="text-sm font-medium text-serra-text">₹{{ item.subtotal }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="space-y-4 text-sm mb-6 pb-6 border-b border-serra-primary/40 font-light">
+                    <div class="flex justify-between">
+                        <span class="text-serra-text/70">Subtotal</span>
+                        <span>₹{{ total }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-serra-text/70">Shipping</span>
+                        <span class="text-serra-accent font-medium">Free Express Air</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-serra-text/70">Taxes</span>
+                        <span>Included</span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between items-end">
+                    <span class="text-lg font-medium">Total</span>
+                    <div class="text-right">
+                        <span class="text-[10px] text-serra-text/50 uppercase tracking-widest block mb-1">INR</span>
+                        <span class="text-3xl font-serif">₹{{ total }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout Form (Left Main Content) -->
+        <div class="w-full lg:w-7/12 mt-8 lg:mt-0">
+            <h2 class="text-3xl font-serif text-serra-text mb-8">Contact & Shipping</h2>
+
+            <form method="post" action="{% url 'place_order' %}" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- Contact Section -->
+                <div class="mb-10">
+                    <h3 class="text-sm font-semibold uppercase tracking-widest text-serra-text/80 mb-4 flex items-center">
+                        <span class="w-6 h-6 rounded-full bg-serra-text text-white flex items-center justify-center text-[10px] mr-3">1</span> 
+                        Contact Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="floating-label-group">
+                            <input type="email" id="email" name="email" class="floating-label-input input-luxury w-full rounded-xl text-serra-text" placeholder=" " required>
+                            <label for="email" class="floating-label">Email Address *</label>
+                        </div>
+                        <div class="floating-label-group">
+                            <input type="tel" id="phone" name="phone" class="floating-label-input input-luxury w-full rounded-xl text-serra-text" placeholder=" " required>
+                            <label for="phone" class="floating-label">Phone Number *</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shipping Address Section -->
+                <div class="mb-10">
+                    <h3 class="text-sm font-semibold uppercase tracking-widest text-serra-text/80 mb-4 flex items-center">
+                        <span class="w-6 h-6 rounded-full bg-serra-text text-white flex items-center justify-center text-[10px] mr-3">2</span> 
+                        Shipping Address
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="floating-label-group">
+                            <input type="text" id="customer_name" name="customer_name" class="floating-label-input input-luxury w-full rounded-xl text-serra-text" placeholder=" " required>
+                            <label for="customer_name" class="floating-label">Full Name *</label>
+                        </div>
+
+                        <div class="floating-label-group">
+                            <textarea id="address" name="address" rows="3" class="floating-label-input input-luxury w-full rounded-xl text-serra-text resize-none pt-6" placeholder=" " required></textarea>
+                            <label for="address" class="floating-label top-6 pt-1">Street Address, Apartment, Suite *</label>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="floating-label-group md:col-span-1">
+                                <input type="text" id="city" name="city" class="floating-label-input input-luxury w-full rounded-xl text-serra-text" placeholder=" " required>
+                                <label for="city" class="floating-label">City *</label>
+                            </div>
+                            <div class="floating-label-group md:col-span-1">
+                                <input type="text" id="state" name="state" class="floating-label-input input-luxury w-full rounded-xl text-serra-text" placeholder=" " required>
+                                <label for="state" class="floating-label">State/Province *</label>
+                            </div>
+                            <div class="floating-label-group md:col-span-1">
+                                <input type="text" id="pincode" name="pincode" class="floating-label-input input-luxury w-full rounded-xl text-serra-text" placeholder=" " required>
+                                <label for="pincode" class="floating-label">Postal Code *</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Section Placeholder -->
+                <div class="mb-10">
+                    <h3 class="text-sm font-semibold uppercase tracking-widest text-serra-text/80 mb-4 flex items-center">
+                        <span class="w-6 h-6 rounded-full bg-serra-text text-white flex items-center justify-center text-[10px] mr-3">3</span> 
+                        Payment Collection
+                    </h3>
+                    <div class="p-6 border border-serra-primary rounded-xl bg-serra-bg text-center">
+                        <svg class="w-8 h-8 text-serra-text/30 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                        <p class="text-sm text-serra-text/60">Cash on Delivery selected. Additional payment methods will be displayed post-order verification.</p>
+                    </div>
+                </div>
+
+                <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-serra-primary/40">
+                    <a href="{% url 'cart_detail' %}" class="text-sm text-serra-text/60 hover:text-serra-text transition-colors flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                        Return to Cart
+                    </a>
+                    
+                    <button type="submit" class="w-full sm:w-auto px-12 py-4 btn-luxury rounded-xl text-sm font-bold uppercase tracking-widest transition-all">
+                        Complete Order
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

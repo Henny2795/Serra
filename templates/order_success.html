@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Order Confirmed | SERRA{% endblock %}
+
+{% block content %}
+<div class="min-h-[80vh] flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 bg-serra-primary/5 relative overflow-hidden">
+    <!-- Abstract subtle background shape -->
+    <div class="absolute inset-0 z-0 opacity-40 mix-blend-multiply pointer-events-none">
+        <div class="absolute top-[10%] right-[20%] w-[40%] h-[40%] rounded-full bg-gradient-to-br from-serra-accent/10 to-transparent blur-3xl"></div>
+    </div>
+
+    <div class="max-w-xl w-full text-center relative z-10">
+        <div class="w-24 h-24 mx-auto bg-serra-text text-white rounded-full flex items-center justify-center mb-8 shadow-2xl">
+            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+        </div>
+        
+        <p class="text-serra-accent tracking-[0.2em] text-xs uppercase font-semibold mb-4">Confirmed</p>
+        <h1 class="text-4xl md:text-5xl font-serif text-serra-text mb-6">Thank You.</h1>
+        
+        <p class="text-serra-text/70 text-lg mb-8 font-light leading-relaxed">
+            Your order has been successfully placed. We have begun crafting and curating your pieces with the utmost care.
+        </p>
+        
+        <div class="bg-white rounded-2xl p-8 border border-serra-primary/60 card-shadow text-left mb-10 max-w-md mx-auto">
+            <div class="flex justify-between items-center mb-6 pb-6 border-b border-serra-primary/40">
+                <span class="text-sm uppercase tracking-widest text-serra-text/50 font-medium">Order Number</span>
+                <span class="text-lg font-serif">#{{ order.id }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-sm uppercase tracking-widest text-serra-text/50 font-medium">Status</span>
+                <span class="text-sm font-medium tracking-wide flex items-center text-serra-text">
+                    <span class="w-2 h-2 rounded-full bg-serra-accent mr-2"></span>{{ order.status|default:"Processing"|title }}
+                </span>
+            </div>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <a href="{% url 'home' %}" class="btn-luxury px-10 py-4 rounded-full text-sm font-bold tracking-widest uppercase transition-all duration-300">
+                Continue Shopping
+            </a>
+            <a href="#" class="px-10 py-4 rounded-full text-sm font-bold tracking-widest uppercase text-serra-text hover:bg-serra-text/5 transition-colors duration-300">
+                Track Order
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

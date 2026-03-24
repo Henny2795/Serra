@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }} | SERRA{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <!-- Breadcrumbs -->
+    <nav class="flex text-sm text-serra-text/50 mb-10 font-light" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-2">
+            <li><a href="{% url 'home' %}" class="hover:text-serra-accent transition-colors">Home</a></li>
+            <li><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></li>
+            <li><a href="#" class="hover:text-serra-accent transition-colors">{{ product.category.name }}</a></li>
+            <li><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></li>
+            <li class="text-serra-text font-medium" aria-current="page">{{ product.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+        <!-- Product Image -->
+        <div class="relative overflow-hidden rounded-2xl bg-white card-shadow h-[600px] flex items-center justify-center group">
+            {% if product.image %}
+                <!-- Simple hover zoom via CSS -->
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="object-cover w-full h-full transform transition-transform duration-700 hover:scale-150 cursor-zoom-in">
+            {% else %}
+                <div class="text-serra-text/30 text-lg font-light">No Image Available</div>
+            {% endif %}
+            
+            {% if product.is_trending %}
+                <div class="absolute top-6 left-6 bg-serra-text text-white text-xs font-bold uppercase tracking-widest py-2 px-4 rounded-full z-10">
+                    Trending
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Product Info -->
+        <div class="flex flex-col justify-center">
+            <span class="text-serra-accent uppercase tracking-widest text-xs font-semibold mb-3">{{ product.category.name }}</span>
+            <h1 class="text-4xl lg:text-5xl font-serif text-serra-text mb-4 leading-tight">{{ product.name }}</h1>
+            
+            <div class="flex items-center space-x-4 mb-8">
+                <span class="text-2xl font-medium text-serra-text">₹{{ product.price }}</span>
+                <!-- Reviews Placeholder -->
+                <div class="flex items-center space-x-1 pl-4 border-l border-serra-primary">
+                    <div class="flex text-serra-accent">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 text-serra-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <span class="text-xs text-serra-text/50 uppercase tracking-widest">(4.2) 128 Reviews</span>
+                </div>
+            </div>
+
+            <p class="text-serra-text/70 leading-relaxed font-light mb-8">{{ product.description }}</p>
+
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-sm font-medium uppercase tracking-wide">Status</span>
+                    {% if product.stock > 0 %}
+                        <span class="text-sm text-green-700 flex items-center bg-green-50 px-3 py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-green-500 mr-2"></span>In Stock ({{ product.stock }})</span>
+                    {% else %}
+                        <span class="text-sm text-red-700 flex items-center bg-red-50 px-3 py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-red-500 mr-2"></span>Out of Stock</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="flex space-x-4 mb-12">
+                <a href="{% url 'add_to_cart' product.id %}" class="flex-1 btn-luxury text-center py-4 rounded-xl text-sm font-bold uppercase tracking-widest transition-all {% if product.stock <= 0 %}opacity-50 cursor-not-allowed pointer-events-none{% endif %}">
+                    Add to Cart
+                </a>
+                <button class="w-16 h-14 flex items-center justify-center border border-serra-text/20 rounded-xl hover:border-serra-accent hover:text-serra-accent transition-colors">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                </button>
+            </div>
+
+            <!-- Accordion Details -->
+            <div class="border-t border-serra-primary/40 divide-y divide-serra-primary/40 text-sm">
+                <!-- Details -->
+                <div class="py-5 flex justify-between items-center cursor-pointer group">
+                    <h3 class="font-medium uppercase tracking-widest group-hover:text-serra-accent transition-colors">Product Details</h3>
+                    <svg class="w-5 h-5 text-serra-text/40 transform transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7" /></svg>
+                </div>
+                <!-- Shipping -->
+                <div class="py-5 flex justify-between items-center cursor-pointer group">
+                    <h3 class="font-medium uppercase tracking-widest group-hover:text-serra-accent transition-colors">Shipping & Returns</h3>
+                    <svg class="w-5 h-5 text-serra-text/40 transform transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7" /></svg>
+                </div>
+                <!-- Care Info -->
+                <div class="py-5 flex justify-between items-center cursor-pointer group">
+                    <h3 class="font-medium uppercase tracking-widest group-hover:text-serra-accent transition-colors">Jewelry Care</h3>
+                    <svg class="w-5 h-5 text-serra-text/40 transform transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7" /></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
