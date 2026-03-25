@@ -1,197 +1,715 @@
 {% extends 'base.html' %}
 {% load static %}
 
+<style>
+    @keyframes fade-in-up {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes scroll-down {
+        0% {
+            transform: translateY(-100%);
+        }
+        100% {
+            transform: translateY(100%);
+        }
+    }
+</style>
+
 {% block content %}
-<!-- Hero Section -->
-<section class="relative min-h-[90vh] flex items-center justify-center bg-serra-primary/20 overflow-hidden">
-    <!-- Abstract subtle background shape -->
-    <div class="absolute inset-0 z-0 opacity-40">
-        <div class="absolute -top-[20%] -right-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-serra-accent/20 to-transparent blur-3xl mix-blend-multiply"></div>
-        <div class="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-gradient-to-tr from-serra-secondary/10 to-transparent blur-3xl mix-blend-multiply"></div>
-    </div>
-
-    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <p class="text-serra-accent tracking-[0.2em] text-sm uppercase font-semibold mb-6">The New Standard of Minimal</p>
-        <h1 class="text-5xl md:text-7xl font-serif text-serra-text mb-8 leading-tight">Quiet Luxury for the <br><span class="italic font-light">Everyday.</span></h1>
-        <p class="text-serra-text/70 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-light">
-            Discover our curated collection of tarnish-free stainless steel jewelry, designed to elevate your daily style with effortless elegance.
-        </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <a href="#featured" class="btn-luxury px-10 py-4 rounded-full text-sm tracking-widest uppercase transition-all duration-300">
-                Shop Collection
-            </a>
-            <a href="#" class="px-10 py-4 rounded-full text-sm tracking-widest uppercase border border-serra-text text-serra-text hover:bg-serra-text hover:text-white transition-all duration-300">
-                Our Story
-            </a>
+<!-- Full-Bleed Dynamic Hero Section -->
+<section class="relative h-screen min-h-[700px] w-full flex items-center -mt-20 overflow-hidden bg-serra-bg">
+    
+    <!-- Background Slider Container -->
+    <div class="absolute inset-0 z-0" id="hero-slider">
+        <!-- Slide 1 -->
+        <div class="hero-bg absolute inset-0 transition-opacity duration-[1500ms] ease-in-out opacity-100">
+            <img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover origin-center motion-safe:animate-[slow-pan_20s_ease-in-out_infinite_alternate] scale-105 blur-sm" alt="Slide 1">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#1E1E1E]/80 via-[#1E1E1E]/40 to-transparent"></div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="hero-bg absolute inset-0 transition-opacity duration-[1500ms] ease-in-out opacity-0">
+            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover origin-center motion-safe:animate-[slow-pan_20s_ease-in-out_infinite_alternate] scale-105 blur-sm" alt="Slide 2">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#1E1E1E]/80 via-[#1E1E1E]/40 to-transparent"></div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="hero-bg absolute inset-0 transition-opacity duration-[1500ms] ease-in-out opacity-0">
+            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover origin-center motion-safe:animate-[slow-pan_20s_ease-in-out_infinite_alternate] scale-105 blur-sm" alt="Slide 3">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#1E1E1E]/80 via-[#1E1E1E]/40 to-transparent"></div>
         </div>
     </div>
-</section>
 
-<!-- Trending / Featured Categories -->
-<section class="py-24 bg-serra-bg" id="categories">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-end mb-16">
-            <div>
-                <h2 class="text-3xl md:text-4xl font-serif text-serra-text mb-4">Shop by Category</h2>
-                <p class="text-serra-text/60 font-light">Explore pieces crafted for perfection.</p>
+    <!-- Hero Content (Modern Left-Aligned with Dark overlay contrast) -->
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 text-white">
+        <div class="max-w-2xl">
+            <div class="flex items-center space-x-4 mb-6 opacity-0 animate-[fade-in-up_1s_ease-out_0.2s_forwards]">
+                <div class="w-12 h-[1px] bg-serra-accent"></div>
+                <span class="text-serra-accent tracking-[0.4em] text-[10px] uppercase font-bold">The New Standard</span>
             </div>
-            <a href="#" class="hidden md:inline-flex items-center text-sm font-medium tracking-wide text-serra-text hover:text-serra-accent transition-colors group">
-                View All Categories
-                <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </a>
+            
+            <h1 class="text-6xl md:text-[5.5rem] lg:text-[7rem] font-serif mb-6 leading-[1.05] tracking-tight opacity-0 animate-[fade-in-up_1s_ease-out_0.4s_forwards]">
+                Quiet Luxury<br>
+                <span class="italic font-light text-white/80 transition-colors duration-500">Curated.</span>
+            </h1>
+            
+            <p class="text-white/80 text-lg md:text-xl mb-12 max-w-lg font-light leading-relaxed opacity-0 animate-[fade-in-up_1s_ease-out_0.6s_forwards]">
+                Elevate your daily rituals. Discover our collection of tarnish-free, premium stainless steel jewelry designed for the modern muse.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-8 opacity-0 animate-[fade-in-up_1s_ease-out_0.8s_forwards]">
+                <a href="#featured" class="group relative px-10 py-[18px] overflow-hidden bg-white text-serra-text text-xs tracking-[0.2em] font-semibold uppercase transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] w-full sm:w-auto text-center">
+                    <span class="relative z-10 group-hover:text-white transition-colors duration-300">Shop Collection</span>
+                    <div class="absolute inset-0 h-full w-full scale-0 transition-all duration-300 ease-out group-hover:scale-100 group-hover:bg-serra-accent"></div>
+                </a>
+                <a href="#categories" class="group relative px-4 py-2 inline-flex items-center text-xs tracking-[0.2em] font-medium uppercase text-white transition-all duration-300 hover:text-serra-accent w-full sm:w-auto justify-center">
+                    Explore Stories
+                    <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </a>
+            </div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Category Card 1 -->
-            <a href="#" class="group block relative overflow-hidden rounded-2xl h-96 hover-zoom">
-                <!-- Using placeholder gradient since no static image is guaranteed, but keeping it elegant -->
-                <div class="absolute inset-0 bg-gradient-to-t from-serra-text/80 to-transparent z-10 rounded-2xl"></div>
-                <!-- fallback to bg-color if no img -->
-                <div class="absolute inset-0 bg-serra-primary mix-blend-multiply"></div>
-                <img src="https://images.unsplash.com/photo-1605100804763-247f67b254a4?auto=format&fit=crop&q=80&w=800" alt="Rings" class="absolute w-full h-full object-cover">
-                <div class="absolute bottom-0 left-0 p-8 z-20">
-                    <h3 class="text-2xl font-serif text-white mb-2">Signature Rings</h3>
-                    <p class="text-white/70 text-sm font-light flex items-center">
-                        Explore <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                    </p>
-                </div>
-            </a>
-            <!-- Category Card 2 -->
-            <a href="#" class="group block relative overflow-hidden rounded-2xl h-96 hover-zoom md:mt-12">
-                <div class="absolute inset-0 bg-gradient-to-t from-serra-text/80 to-transparent z-10 rounded-2xl"></div>
-                <div class="absolute inset-0 bg-serra-secondary mix-blend-overlay"></div>
-                <img src="https://images.unsplash.com/photo-1599643478524-fb66f70a00ea?auto=format&fit=crop&q=80&w=800" alt="Necklaces" class="absolute w-full h-full object-cover">
-                <div class="absolute bottom-0 left-0 p-8 z-20">
-                    <h3 class="text-2xl font-serif text-white mb-2">Layered Necklaces</h3>
-                    <p class="text-white/70 text-sm font-light flex items-center">
-                        Explore <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                    </p>
-                </div>
-            </a>
-            <!-- Category Card 3 -->
-            <a href="#" class="group block relative overflow-hidden rounded-2xl h-96 hover-zoom md:mt-24">
-                <div class="absolute inset-0 bg-gradient-to-t from-serra-text/80 to-transparent z-10 rounded-2xl"></div>
-                <div class="absolute inset-0 bg-serra-primary mix-blend-multiply"></div>
-                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=800" alt="Earrings" class="absolute w-full h-full object-cover">
-                <div class="absolute bottom-0 left-0 p-8 z-20">
-                    <h3 class="text-2xl font-serif text-white mb-2">Everyday Earrings</h3>
-                    <p class="text-white/70 text-sm font-light flex items-center">
-                        Explore <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                    </p>
+    </div>
+    
+    <!-- Slider Controls & Indicators -->
+    <div class="absolute bottom-12 left-0 right-0 z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div class="flex space-x-3" id="hero-dots">
+                <button class="w-12 h-[2px] bg-white transition-all duration-300"></button>
+                <button class="w-8 h-[2px] bg-white/30 hover:bg-white/60 transition-all duration-300"></button>
+                <button class="w-8 h-[2px] bg-white/30 hover:bg-white/60 transition-all duration-300"></button>
+            </div>
+            
+            <!-- Scroll down indicator -->
+            <a href="#categories" class="hidden md:flex flex-col items-center text-white/50 hover:text-white transition-colors group">
+                <span class="text-[9px] uppercase tracking-[0.3em] font-medium mb-3 rotate-90 translate-y-[-10px] transform origin-right whitespace-nowrap">Scroll</span>
+                <div class="w-[1px] h-12 bg-white/20 overflow-hidden">
+                    <div class="w-full h-full bg-white animate-[scroll-down_2s_ease-in-out_infinite]"></div>
                 </div>
             </a>
         </div>
     </div>
 </section>
 
-<!-- Featured Products (Dynamic from Django) -->
-<section class="py-24 bg-white" id="featured">
+<!-- Subtle Marquee / Trust Banner -->
+<div class="bg-serra-primary/40 text-serra-text/80 py-4 overflow-hidden flex whitespace-nowrap border-b border-serra-primary/60">
+    <div class="animate-[marquee_25s_linear_infinite] flex space-x-12 items-center text-xs tracking-widest uppercase font-medium">
+        <span>★ Tarnish Free</span>
+        <span class="text-serra-accent/60">•</span>
+        <span>Hypoallergenic</span>
+        <span class="text-serra-accent/60">•</span>
+        <span>Water Resistant</span>
+        <span class="text-serra-accent/60">•</span>
+        <span>Premium 316L Steel</span>
+        <span class="text-serra-accent/60">•</span>
+        <span>Free Shipping Over $100</span>
+        <span class="text-serra-accent/60">•</span>
+        <span>★ Tarnish Free</span>
+        <span class="text-serra-accent/60">•</span>
+        <span>Hypoallergenic</span>
+        <span class="text-serra-accent/60">•</span>
+        <span>Water Resistant</span>
+        <span class="text-serra-accent/60">•</span>
+        <span>Premium 316L Steel</span>
+        <span class="text-serra-accent/60">•</span>
+        <span>Free Shipping Over $100</span>
+    </div>
+</div>
+
+<!-- Curated Layers Section -->
+<section class="py-24 bg-serra-bg relative overflow-hidden" id="curated-layers">
+    <!-- Subtle Background Element -->
+    <div class="absolute top-0 right-0 w-[40%] h-full bg-serra-primary/10 -skew-x-12 origin-top transform translate-x-32 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+            <!-- Image Side -->
+            <div class="w-full lg:w-1/2 relative group">
+                <!-- Inner dark green background block -->
+                <div class="absolute inset-0 bg-[#0a1f11] translate-x-4 translate-y-4 md:translate-x-8 md:translate-y-8 z-0 transition-transform duration-700 group-hover:translate-x-6 group-hover:translate-y-6"></div>
+                <!-- Generated Image -->
+                <div class="relative z-10 overflow-hidden shadow-2xl">
+                    <img src="{% static 'images/layered_gold_jewelry.png' %}" alt="Layered Gold Jewelry Stack" class="w-full h-auto object-cover aspect-[4/5] transform transition-transform duration-[2s] group-hover:scale-105">
+                </div>
+            </div>
+            
+            <!-- Content Side -->
+            <div class="w-full lg:w-1/2 py-8">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-8 h-px bg-serra-accent/40"></div>
+                    <span class="text-serra-accent uppercase tracking-[0.4em] text-xs font-bold block">The Art of Stacking</span>
+                </div>
+                
+                <h2 class="text-5xl md:text-6xl lg:text-7xl font-serif text-serra-text mb-8 leading-[1.0] tracking-tight">Curated <br><span class="italic font-light text-serra-text/70">Layers.</span></h2>
+                
+                <p class="text-serra-text/70 font-light mb-10 text-lg md:text-xl leading-relaxed max-w-lg">
+                    Personalize your narrative with pieces designed to be worn together. From delicate chains to statement rings, discover the perfect combination that speaks to your unique style. Crafted in premium 316L stainless steel for an everlasting, tarnish-free glow.
+                </p>
+                
+                <a href="#featured" class="group/btn inline-flex items-center text-sm tracking-[0.2em] font-medium uppercase text-serra-text transition-colors relative">
+                    <span class="relative z-10 pb-2 border-b border-serra-text/30 group-hover/btn:border-serra-accent group-hover/btn:text-serra-accent transition-colors flex items-center">
+                        Shop The Edit
+                        <svg class="w-4 h-4 ml-3 transform group-hover/btn:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modern Editorial Category Section -->
+<section class="py-32 bg-serra-bg relative overflow-hidden" id="categories">
+    <!-- Decorative background number (Repositioned and softened further) -->
+    <div class="absolute -top-16 left-0 text-[24rem] font-serif text-serra-primary/5 select-none pointer-events-none">01</div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="flex flex-col md:flex-row items-end justify-between mb-24 gap-12">
+            <div class="max-w-2xl">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-8 h-px bg-serra-accent/40"></div>
+                    <span class="text-serra-accent uppercase tracking-[0.4em] text-xs font-bold block">The Collections</span>
+                </div>
+                <h2 class="text-6xl md:text-8xl font-serif text-serra-text leading-[1.0] mb-0 tracking-tight">Masterpieces in<br><span class="italic font-light text-serra-text/60">Miniature.</span></h2>
+            </div>
+            
+            <div class="max-w-xs pb-4">
+                <p class="text-serra-text/50 font-light text-lg leading-relaxed italic border-l-2 border-serra-accent/20 pl-6">
+                    Elevated essentials for the modern muse. Each collection is a study in form and timeless elegance.
+                </p>
+            </div>
+        </div>
+
+        <!-- Premium Center-Focus Carousel -->
+        <div class="relative py-12 overflow-hidden group/slider">
+            <div id="category-track" class="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform">
+                
+                <!-- Category 01: Necklaces -->
+                <div class="category-card min-w-[320px] md:min-w-[420px] px-6 transition-all duration-700 scale-90 opacity-40">
+                    <a href="#" class="group block relative">
+                        <div class="relative aspect-[4/6] overflow-hidden mb-12 rounded-t-full border border-serra-primary/10 shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&q=80&w=800" alt="Necklaces" class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-serra-bg/30 to-transparent"></div>
+                        </div>
+                        <div class="absolute bottom-16 left-0 right-0 text-center transition-all duration-700 card-content pointer-events-none">
+                            <h3 class="text-4xl font-serif text-serra-text drop-shadow-sm">Signature<br><span class="text-2xl font-light italic opacity-80">Necklaces</span></h3>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Category 02: Rings -->
+                <div class="category-card min-w-[320px] md:min-w-[420px] px-6 transition-all duration-700 scale-90 opacity-40">
+                    <a href="#" class="group block relative">
+                        <div class="relative aspect-[4/6] overflow-hidden mb-12 rounded-t-full border border-serra-primary/10 shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1627243011550-1053f3100c8a?auto=format&fit=crop&q=80&w=800" alt="Rings" class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-serra-bg/30 to-transparent"></div>
+                        </div>
+                        <div class="absolute bottom-16 left-0 right-0 text-center transition-all duration-700 card-content pointer-events-none">
+                            <h3 class="text-4xl font-serif text-serra-text drop-shadow-sm">Sculpted<br><span class="text-2xl font-light italic opacity-80">Rings</span></h3>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Category 03: Earrings -->
+                <div class="category-card min-w-[320px] md:min-w-[420px] px-6 transition-all duration-700 scale-90 opacity-40">
+                    <a href="#" class="group block relative">
+                        <div class="relative aspect-[4/6] overflow-hidden mb-12 rounded-t-full border border-serra-primary/10 shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=800" alt="Earrings" class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-serra-bg/30 to-transparent"></div>
+                        </div>
+                        <div class="absolute bottom-16 left-0 right-0 text-center transition-all duration-700 card-content pointer-events-none">
+                            <h3 class="text-4xl font-serif text-serra-text drop-shadow-sm">Modern<br><span class="text-2xl font-light italic opacity-80">Earrings</span></h3>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Category 04: Bracelets -->
+                <div class="category-card min-w-[320px] md:min-w-[420px] px-6 transition-all duration-700 scale-90 opacity-40">
+                    <a href="#" class="group block relative">
+                        <div class="relative aspect-[4/6] overflow-hidden mb-12 rounded-t-full border border-serra-primary/10 shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=800" alt="Bracelets" class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-serra-bg/30 to-transparent"></div>
+                        </div>
+                        <div class="absolute bottom-16 left-0 right-0 text-center transition-all duration-700 card-content pointer-events-none">
+                            <h3 class="text-4xl font-serif text-serra-text drop-shadow-sm">Elegant<br><span class="text-2xl font-light italic opacity-80">Cuffs</span></h3>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Category 05: Pendants -->
+                <div class="category-card min-w-[320px] md:min-w-[420px] px-6 transition-all duration-700 scale-90 opacity-40">
+                    <a href="#" class="group block relative">
+                        <div class="relative aspect-[4/6] overflow-hidden mb-12 rounded-t-full border border-serra-primary/10 shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&q=80&w=800" alt="Pendants" class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-serra-bg/30 to-transparent"></div>
+                        </div>
+                        <div class="absolute bottom-16 left-0 right-0 text-center transition-all duration-700 card-content pointer-events-none">
+                            <h3 class="text-4xl font-serif text-serra-text drop-shadow-sm">Fine<br><span class="text-2xl font-light italic opacity-80">Pendants</span></h3>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Category 06: Anklets -->
+                <div class="category-card min-w-[320px] md:min-w-[420px] px-6 transition-all duration-700 scale-90 opacity-40">
+                    <a href="#" class="group block relative">
+                        <div class="relative aspect-[4/6] overflow-hidden mb-12 rounded-t-full border border-serra-primary/10 shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=800" alt="Anklets" class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-serra-bg/30 to-transparent"></div>
+                        </div>
+                        <div class="absolute bottom-16 left-0 right-0 text-center transition-all duration-700 card-content pointer-events-none">
+                            <h3 class="text-4xl font-serif text-serra-text drop-shadow-sm">Summer<br><span class="text-2xl font-light italic opacity-80">Anklets</span></h3>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="flex justify-center mt-16 space-x-6 items-center">
+                <button id="prev-btn" class="w-12 h-12 rounded-full border border-serra-accent/30 flex items-center justify-center text-serra-accent hover:bg-serra-accent hover:text-white transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <div class="flex space-x-3" id="slider-dots">
+                    <!-- Dots will be active-style based on JS -->
+                </div>
+                <button id="next-btn" class="w-12 h-12 rounded-full border border-serra-accent/30 flex items-center justify-center text-serra-accent hover:bg-serra-accent hover:text-white transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" /></svg>
+                </button>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const track = document.getElementById('category-track');
+                const initialCards = Array.from(document.querySelectorAll('.category-card'));
+                const nextBtn = document.getElementById('next-btn');
+                const prevBtn = document.getElementById('prev-btn');
+                const dotsContainer = document.getElementById('slider-dots');
+                
+                const originalTotal = initialCards.length;
+                
+                // Clone cards for infinite loop: Prepende last 3, Append first 3
+                initialCards.slice(-3).reverse().forEach(card => {
+                    const clone = card.cloneNode(true);
+                    track.insertBefore(clone, track.firstChild);
+                });
+                initialCards.slice(0, 3).forEach(card => {
+                    const clone = card.cloneNode(true);
+                    track.appendChild(clone);
+                });
+
+                const allCards = track.querySelectorAll('.category-card');
+                let activeIndex = 3; // Start at the first "real" card after clones
+                let isTransitioning = false;
+
+                // Create dots for original items
+                initialCards.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-serra-accent w-6' : 'bg-serra-primary/40'}`;
+                    dot.addEventListener('click', () => {
+                        if (isTransitioning) return;
+                        goToSlide(i + 3);
+                    });
+                    dotsContainer.appendChild(dot);
+                });
+
+                const dots = dotsContainer.querySelectorAll('button');
+
+                function updateLayout(v_instant = false) {
+                    if (v_instant) track.style.transition = 'none';
+                    else track.style.transition = 'transform 0.7s cubic-bezier(0.25, 1, 0.5, 1)';
+
+                    const cardWidth = allCards[0].offsetWidth;
+                    const containerWidth = track.parentElement.offsetWidth;
+                    
+                    const offset = (containerWidth / 2) - (activeIndex * cardWidth) - (cardWidth / 2);
+                    track.style.transform = `translateX(${offset}px)`;
+
+                    // Update styles for focal effect
+                    allCards.forEach((card, i) => {
+                        const content = card.querySelector('.card-content');
+                        if (i === activeIndex) {
+                            card.classList.remove('scale-90', 'opacity-40');
+                            card.classList.add('scale-105', 'opacity-100', 'z-20');
+                            if (content) content.style.opacity = '1';
+                        } else {
+                            card.classList.remove('scale-105', 'opacity-100', 'z-20');
+                            card.classList.add('scale-90', 'opacity-40');
+                            if (content) content.style.opacity = '0';
+                        }
+                    });
+
+                    // Update dots based on real card index
+                    const dotIndex = (activeIndex - 3 + originalTotal) % originalTotal;
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('bg-serra-accent', i === dotIndex);
+                        dot.classList.toggle('bg-serra-primary/40', i !== dotIndex);
+                        dot.classList.toggle('w-6', i === dotIndex);
+                    });
+
+                    if (v_instant) {
+                        // Force a reflow to apply 'none' before reinstating transition
+                        track.offsetHeight;
+                    }
+                }
+
+                function handleThreshold() {
+                    // If we reached the cloned start (index 2 or less)
+                    if (activeIndex <= 2) {
+                        activeIndex = activeIndex + originalTotal;
+                        updateLayout(true);
+                    }
+                    // If we reached the cloned end (index >= 3 + originalTotal)
+                    else if (activeIndex >= 3 + originalTotal) {
+                        activeIndex = activeIndex - originalTotal;
+                        updateLayout(true);
+                    }
+                    isTransitioning = false;
+                }
+
+                track.addEventListener('transitionend', handleThreshold);
+
+                function goToSlide(i) {
+                    if (isTransitioning) return;
+                    isTransitioning = true;
+                    activeIndex = i;
+                    updateLayout();
+                    resetTimer();
+                }
+
+                function nextSlide() {
+                    goToSlide(activeIndex + 1);
+                }
+
+                function prevSlide() {
+                    goToSlide(activeIndex - 1);
+                }
+
+                nextBtn.addEventListener('click', nextSlide);
+                prevBtn.addEventListener('click', prevSlide);
+
+                let slideTimer = setInterval(nextSlide, 4000);
+
+                function resetTimer() {
+                    clearInterval(slideTimer);
+                    slideTimer = setInterval(nextSlide, 4000);
+                }
+
+                window.addEventListener('resize', () => updateLayout(true));
+                setTimeout(() => updateLayout(true), 100);
+            });
+            
+            // Hero Background Slider Logic
+            document.addEventListener('DOMContentLoaded', function() {
+                const heroSlides = document.querySelectorAll('.hero-bg');
+                const heroDots = document.getElementById('hero-dots').querySelectorAll('button');
+                if(heroSlides.length === 0) return;
+                
+                let currentHero = 0;
+                
+                function showSlide(index) {
+                    heroSlides[currentHero].classList.remove('opacity-100');
+                    heroSlides[currentHero].classList.add('opacity-0');
+                    heroDots[currentHero].classList.remove('w-12', 'bg-white');
+                    heroDots[currentHero].classList.add('w-8', 'bg-white/30');
+                    
+                    currentHero = index;
+                    
+                    heroSlides[currentHero].classList.remove('opacity-0');
+                    heroSlides[currentHero].classList.add('opacity-100');
+                    heroDots[currentHero].classList.remove('w-8', 'bg-white/30');
+                    heroDots[currentHero].classList.add('w-12', 'bg-white');
+                }
+
+                heroDots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        showSlide(index);
+                        resetHeroTimer();
+                    });
+                });
+
+                let heroTimer = setInterval(() => {
+                    showSlide((currentHero + 1) % heroSlides.length);
+                }, 5000);
+
+                function resetHeroTimer() {
+                    clearInterval(heroTimer);
+                    heroTimer = setInterval(() => {
+                        showSlide((currentHero + 1) % heroSlides.length);
+                    }, 5000);
+                }
+            });
+        </script>
+    </div>
+</section>
+
+<!-- Our Philosophy - High-End Editorial -->
+<section class="py-32 bg-white relative overflow-hidden" id="our-story">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-16 lg:gap-24">
+            <!-- Text Content (Left) -->
+            <div class="w-full md:w-5/12 order-2 md:order-1 relative">
+                <div class="absolute -left-12 -top-12 text-[10rem] font-serif text-serra-primary/20 leading-none select-none pointer-events-none italic">S</div>
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-4 mb-8">
+                        <span class="text-serra-accent uppercase tracking-[0.3em] text-[10px] font-bold">Our Philosophy</span>
+                        <div class="w-16 h-[1px] bg-serra-accent/40"></div>
+                    </div>
+                    <h2 class="text-5xl lg:text-7xl font-serif text-serra-text mb-10 leading-[1.1] tracking-tight">
+                        Elevating The<br>
+                        <span class="italic font-light text-serra-text/70">Everyday.</span>
+                    </h2>
+                    <p class="text-serra-text/60 font-light mb-8 text-lg leading-[1.9] max-w-sm">
+                        True luxury isn't reserved for special occasions. It belongs in the quiet moments. Our pieces are meticulously crafted to withstand the elements without losing their pristine luster.
+                    </p>
+                    <a href="#" class="group inline-flex items-center space-x-4 mt-4">
+                        <span class="w-12 h-12 rounded-full border border-serra-primary flex items-center justify-center text-serra-text group-hover:bg-serra-text group-hover:text-white transition-all duration-300">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                        </span>
+                        <span class="text-xs tracking-[0.2em] font-medium uppercase text-serra-text group-hover:text-serra-accent transition-colors">The Manifesto</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Overlapping Images (Right) -->
+            <div class="w-full md:w-7/12 order-1 md:order-2 relative h-[500px] lg:h-[700px]">
+                <div class="absolute top-0 right-0 w-3/4 h-[85%] bg-serra-primary/10 -z-10 transform -rotate-3 rounded-2xl"></div>
+                <!-- Generated rings on box image -->
+                <img src="{% static 'images/rings_on_box.png' %}" alt="Philosophy" class="absolute top-[5%] right-[5%] w-[65%] h-[60%] object-cover shadow-2xl z-20 hover:scale-105 transition-transform duration-700">
+                <!-- Generic aesthetic Unsplash image for overlap -->
+                <img src="https://images.unsplash.com/photo-1584302179602-e4c3d3fd629d?auto=format&fit=crop&q=80&w=800" alt="Details" class="absolute bottom-[5%] left-[5%] w-[55%] h-[50%] object-cover shadow-xl z-30 ring-8 ring-white hover:scale-105 transition-transform duration-700">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- The Craftsmanship - New Dynamic Section -->
+<section class="py-32 bg-serra-bg text-serra-text relative overflow-hidden" id="craftsmanship">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            
+            <!-- Graphic/Image side -->
+            <div class="relative group h-[500px] lg:h-[700px] w-full">
+                <div class="absolute inset-0 border border-serra-text/10 transform translate-x-6 translate-y-6 transition-transform duration-700 group-hover:translate-x-3 group-hover:translate-y-3 z-0"></div>
+                <img src="{% static 'images/artisan_craftsmanship.png' %}" alt="Artisan Craftsmanship" class="relative z-10 w-full h-full object-cover filter brightness-100 contrast-110 transition-all duration-[2s] group-hover:scale-105">
+                <div class="absolute bottom-8 left-8 right-8 z-20 bg-white/80 backdrop-blur-md p-6 border border-serra-primary/20 hidden md:block">
+                    <p class="text-serra-text/60 text-sm font-light italic text-center uppercase tracking-[0.2em]">"Precision in every link, passion in every polish."</p>
+                </div>
+            </div>
+
+            <!-- Content Side -->
+            <div>
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="w-8 h-[1px] bg-serra-accent"></div>
+                    <span class="text-serra-accent tracking-[0.3em] text-[10px] uppercase font-bold">The Craftsmanship</span>
+                </div>
+                
+                <h2 class="text-5xl lg:text-6xl font-serif mb-10 leading-[1.1] tracking-tight">
+                    Artisan<br>
+                    <span class="italic font-light text-serra-text/50">Excellence.</span>
+                </h2>
+                
+                <div class="space-y-8 text-serra-text/70 font-light text-lg leading-relaxed">
+                    <p>
+                        Every piece in the Serra collection is a tribute to meticulous artisanship. We collaborate with master jewelers who employ generation-spanning techniques combined with modern metallurgy to create pieces that endure.
+                    </p>
+                    <p>
+                        Forged from premium, surgical-grade 316L stainless steel, our jewelry is hypoallergenic, entirely water-resistant, and unconditionally tarnish-free. It's not just jewelry; it's a lifelong companion.
+                    </p>
+                </div>
+                
+                <div class="mt-14 grid grid-cols-2 gap-8 border-t border-serra-primary/30 pt-10">
+                    <div>
+                        <h4 class="text-serra-text font-serif text-2xl mb-2">316L</h4>
+                        <p class="text-serra-text/50 text-xs tracking-[0.1em] uppercase">Surgical Steel</p>
+                    </div>
+                    <div>
+                        <h4 class="text-serra-text font-serif text-2xl mb-2">100%</h4>
+                        <p class="text-serra-text/50 text-xs tracking-[0.1em] uppercase">Tarnish Free</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- The Essentials - Premium Editorial Showcase -->
+<section class="py-32 bg-white" id="featured">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16 px-4">
-            <span class="text-serra-accent uppercase tracking-[0.15em] text-xs font-semibold mb-3 block">Curated For You</span>
-            <h2 class="text-3xl md:text-5xl font-serif text-serra-text">New Arrivals</h2>
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-serra-primary/40 pb-10">
+            <div class="max-w-xl">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-[1px] bg-serra-accent"></div>
+                    <span class="text-serra-accent uppercase tracking-[0.4em] text-[10px] font-bold">The Signature Collection</span>
+                </div>
+                <h2 class="text-4xl md:text-6xl font-serif text-serra-text leading-tight">The Essentials</h2>
+                <p class="text-serra-text/50 font-light mt-6 text-lg leading-relaxed">A curation of our most-loved, tarnish-free icons. Designed for longevity and effortless layering.</p>
+            </div>
+            <div class="hidden md:block">
+                <a href="{% url 'product_list' %}" class="group relative px-8 py-4 border border-serra-text/20 text-[10px] tracking-[0.3em] font-bold uppercase text-serra-text hover:bg-serra-text hover:text-white transition-all duration-500 overflow-hidden">
+                    <span class="relative z-10 transition-colors duration-500">View Fully Curated</span>
+                    <div class="absolute inset-0 bg-serra-text translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Editorial Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16 mb-20">
+            <!-- 1. The Signature Hoop -->
+            <div class="md:col-span-4 group">
+                <div class="relative overflow-hidden aspect-[4/5] bg-serra-bg mb-8">
+                    <img src="{% static 'images/essential_earrings.png' %}" alt="Signature Hoops" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/5 group-hover:opacity-0 transition-opacity"></div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-[0.25em] text-serra-accent font-bold mb-2 block">Iconic Essentials</span>
+                        <h3 class="text-2xl font-serif mb-2 text-serra-text">Sculpted Hoops</h3>
+                    </div>
+                    <div class="text-lg font-light text-serra-text/70">₹1,850</div>
+                </div>
+                <p class="mt-4 text-serra-text/50 text-[13px] leading-relaxed font-light">Crafted in 316L stainless steel with a high-polished gold finish. Minimalist, hefty, and water-resistant.</p>
+            </div>
+
+            <!-- 2. The Classic Pendant (Larger/Center) -->
+            <div class="md:col-span-4 md:mt-12 group">
+                <div class="relative overflow-hidden aspect-[4/5] bg-serra-bg mb-8">
+                    <img src="{% static 'images/essential_necklaces.png' %}" alt="Signature Pendant" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/5 group-hover:opacity-0 transition-opacity"></div>
+                    <div class="absolute top-6 left-6 z-10 bg-serra-text text-white text-[8px] font-bold uppercase tracking-[0.2em] py-1.5 px-3">Collector's Edit</div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-[0.25em] text-serra-accent font-bold mb-2 block">Iconic Essentials</span>
+                        <h3 class="text-2xl font-serif mb-2 text-serra-text">Lumière Pendant</h3>
+                    </div>
+                    <div class="text-lg font-light text-serra-text/70">₹2,400</div>
+                </div>
+                <p class="mt-4 text-serra-text/50 text-[13px] leading-relaxed font-light">A delicate masterpiece designed for the everyday muse. A singular pendant on a fine, adjustable tarnish-free chain.</p>
+            </div>
+
+            <!-- 3. The Stackable Rings -->
+            <div class="md:col-span-4 group">
+                <div class="relative overflow-hidden aspect-[4/5] bg-serra-bg mb-8">
+                    <img src="{% static 'images/essential_rings.png' %}" alt="Stackable Rings" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-black/5 group-hover:opacity-0 transition-opacity"></div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-[0.25em] text-serra-accent font-bold mb-2 block">Iconic Essentials</span>
+                        <h3 class="text-2xl font-serif mb-2 text-serra-text">Serra Ring Set</h3>
+                    </div>
+                    <div class="text-lg font-light text-serra-text/70">₹3,200</div>
+                </div>
+                <p class="mt-4 text-serra-text/50 text-[13px] leading-relaxed font-light">The foundational stack. Three refined rings in varying textures, designed to be worn separately or together.</p>
+            </div>
         </div>
 
         {% if products %}
+            <!-- Showroom Divider -->
+            <div class="pt-20 border-t border-serra-primary/30 mb-16">
+                <div class="flex items-center space-x-6">
+                    <h3 class="text-[10px] uppercase tracking-[0.4em] text-serra-text/40 font-bold">The Showroom</h3>
+                    <div class="flex-grow h-[1px] bg-serra-primary/20"></div>
+                </div>
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
                 {% for product in products %}
-                    <div class="group flex flex-col items-center">
-                        <div class="relative w-full aspect-[4/5] overflow-hidden rounded-[20px] mb-6 bg-serra-bg card-shadow">
-                            {% if product.is_trending %}
-                                <div class="absolute top-4 left-4 z-20 bg-serra-text text-white text-[10px] font-bold uppercase tracking-widest py-1.5 px-3 rounded-full">
-                                    Trending
-                                </div>
-                            {% endif %}
-                            
-                            <!-- Heart Icon -->
-                            <button class="absolute top-4 right-4 z-20 text-serra-text/40 hover:text-serra-accent transition-colors bg-white/50 backdrop-blur-md p-2 rounded-full">
-                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
-                            </button>
-
-                            <a href="{% url 'product_detail' product.id %}" class="block w-full h-full hover-zoom">
-                                {% if product.image %}
-                                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="object-cover w-full h-full">
-                                {% else %}
-                                    <div class="w-full h-full flex items-center justify-center text-serra-text/40 text-sm font-light bg-serra-primary/20">No Image</div>
-                                {% endif %}
-                            </a>
-
-                            <!-- Add to cart overlay -->
-                            <div class="absolute bottom-0 left-0 w-full p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out z-20">
-                                <a href="{% url 'add_to_cart' product.id %}" class="block w-full text-center bg-white/95 backdrop-blur-sm text-serra-text py-3 rounded-xl text-sm font-semibold hover:bg-serra-text hover:text-white transition-colors border border-transparent hover:border-serra-text shadow-lg">
-                                    Quick Add
-                                </a>
+                    <!-- Existing product grid item logic stays the same but maybe slightly refined -->
+                    <div class="group flex flex-col">
+                        <div class="relative w-full aspect-[3/4] overflow-hidden bg-serra-bg/40 mb-6 flex items-center justify-center border border-serra-primary/10 transition-all duration-500 hover:shadow-xl">
+                            {% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}" class="object-cover w-full h-full transform transition-transform duration-700 group-hover:scale-105">{% endif %}
+                            <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                            <div class="absolute bottom-4 left-4 right-4 transform translate-y-[120%] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out z-20">
+                                <a href="{% url 'add_to_cart' product.id %}" class="block w-full text-center bg-white/95 backdrop-blur-md text-serra-text py-3 text-[10px] tracking-[0.2em] font-semibold uppercase hover:bg-serra-text hover:text-white transition-colors">Add to Bag</a>
                             </div>
                         </div>
-
-                        <div class="text-center w-full px-2">
-                            <div class="text-xs text-serra-text/50 uppercase tracking-wider mb-2 font-medium">{{ product.category.name }}</div>
-                            <h3 class="text-lg font-serif text-serra-text mb-2 line-clamp-1"><a href="{% url 'product_detail' product.id %}" class="hover:text-serra-accent transition-colors">{{ product.name }}</a></h3>
-                            <div class="text-base font-medium text-serra-text">₹{{ product.price }}</div>
+                        <div class="text-left w-full mt-2">
+                            <h3 class="text-sm font-serif text-serra-text mb-1"><a href="{% url 'product_detail' product.id %}" class="hover:text-serra-accent transition-colors line-clamp-1 italic">{{ product.name }}</a></h3>
+                            <div class="text-sm font-medium text-serra-text/60">₹{{ product.price }}</div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
-            
-            <div class="mt-20 text-center">
-                <a href="#" class="inline-block border-b-2 border-serra-accent text-serra-text hover:text-serra-accent pb-1 font-medium tracking-wide uppercase text-sm transition-colors">
-                    Explore entire collection
-                </a>
-            </div>
-        {% else %}
-            <div class="text-center py-20 px-4 border border-dashed border-serra-primary/50 rounded-2xl bg-serra-bg/30">
-                <svg class="mx-auto h-12 w-12 text-serra-text/30 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
-                <h3 class="text-xl font-serif text-serra-text mb-2">The Vault is Empty</h3>
-                <p class="text-serra-text/60 font-light">Products are being curated. Please check back later.</p>
-            </div>
         {% endif %}
     </div>
 </section>
-
-<!-- Testimonials -->
-<section class="py-24 bg-serra-primary/10 border-y border-serra-primary/20">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-        <svg class="h-8 w-8 text-serra-accent mx-auto mb-8 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-        <p class="text-2xl md:text-3xl font-serif text-serra-text leading-relaxed mb-8">
-            "The quality is exceptional. It feels luxurious yet durable enough for everyday wear. SERRA has completely redefined my daily jewelry routine."
-        </p>
-        <div class="font-medium tracking-wide uppercase text-sm text-serra-text/70">— Elena R.</div>
     </div>
 </section>
 
-<!-- Brand Features -->
-<section class="py-16 bg-white shrink-0">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-serra-primary/30">
-            <div class="px-4">
-                <div class="w-10 h-10 mx-auto rounded-full bg-serra-bg flex items-center justify-center mb-4 text-serra-secondary">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+<!-- Impactful Testimonial -->
+<section class="py-24 bg-serra-primary/10 border-y border-serra-primary/20 text-center relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-4 relative z-10">
+        <svg class="h-8 w-8 text-serra-accent mx-auto mb-8 opacity-50" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        <p class="text-2xl md:text-4xl font-serif text-serra-text leading-relaxed md:leading-snug mb-8 font-light">
+            "Finally, jewelry that keeps up with me. The quality is exceptional—luxurious, hefty, yet minimal enough for the everyday."
+        </p>
+        <div class="flex items-center justify-center space-x-4">
+            <div class="w-10 h-px bg-serra-accent/50"></div>
+            <div class="font-medium tracking-[0.2em] uppercase text-xs text-serra-text/70">Vogue Magazine</div>
+            <div class="w-10 h-px bg-serra-accent/50"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Minimalist Brand Values -->
+<section class="py-20 bg-white border-b border-serra-primary/20 shrink-0">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 text-center">
+            <div class="group">
+                <div class="w-12 h-12 mx-auto border border-serra-primary/50 text-serra-text flex items-center justify-center mb-5 transition-transform duration-500 group-hover:-translate-y-2 group-hover:border-serra-accent group-hover:text-serra-accent">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
                 </div>
-                <h4 class="font-medium text-sm text-serra-text uppercase tracking-wide mb-1">Premium Quality</h4>
-                <p class="text-xs text-serra-text/50">316L Stainless Steel</p>
+                <h4 class="font-medium text-xs text-serra-text uppercase tracking-[0.15em] mb-2">Premium 316L</h4>
+                <p class="text-[13px] text-serra-text/50 font-light max-w-[150px] mx-auto">Surgical grade stainless steel.</p>
             </div>
-            <div class="px-4">
-                <div class="w-10 h-10 mx-auto rounded-full bg-serra-bg flex items-center justify-center mb-4 text-serra-secondary">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            <div class="group">
+                <div class="w-12 h-12 mx-auto border border-serra-primary/50 text-serra-text flex items-center justify-center mb-5 transition-transform duration-500 group-hover:-translate-y-2 group-hover:border-serra-accent group-hover:text-serra-accent">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                 </div>
-                <h4 class="font-medium text-sm text-serra-text uppercase tracking-wide mb-1">Tarnish Free</h4>
-                <p class="text-xs text-serra-text/50">Water & sweat resistant</p>
+                <h4 class="font-medium text-xs text-serra-text uppercase tracking-[0.15em] mb-2">Tarnish Free</h4>
+                <p class="text-[13px] text-serra-text/50 font-light max-w-[150px] mx-auto">Water & sweat resistant.</p>
             </div>
-            <div class="px-4">
-                <div class="w-10 h-10 mx-auto rounded-full bg-serra-bg flex items-center justify-center mb-4 text-serra-secondary">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+            <div class="group">
+                <div class="w-12 h-12 mx-auto border border-serra-primary/50 text-serra-text flex items-center justify-center mb-5 transition-transform duration-500 group-hover:-translate-y-2 group-hover:border-serra-accent group-hover:text-serra-accent">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
                 </div>
-                <h4 class="font-medium text-sm text-serra-text uppercase tracking-wide mb-1">Eco Packaging</h4>
-                <p class="text-xs text-serra-text/50">100% recyclable</p>
+                <h4 class="font-medium text-xs text-serra-text uppercase tracking-[0.15em] mb-2">Sustainable</h4>
+                <p class="text-[13px] text-serra-text/50 font-light max-w-[150px] mx-auto">100% recyclable packaging.</p>
             </div>
-            <div class="px-4">
-                <div class="w-10 h-10 mx-auto rounded-full bg-serra-bg flex items-center justify-center mb-4 text-serra-secondary">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+            <div class="group">
+                <div class="w-12 h-12 mx-auto border border-serra-primary/50 text-serra-text flex items-center justify-center mb-5 transition-transform duration-500 group-hover:-translate-y-2 group-hover:border-serra-accent group-hover:text-serra-accent">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
                 </div>
-                <h4 class="font-medium text-sm text-serra-text uppercase tracking-wide mb-1">Secure Checkout</h4>
-                <p class="text-xs text-serra-text/50">Fully encrypted</p>
+                <h4 class="font-medium text-xs text-serra-text uppercase tracking-[0.15em] mb-2">Secure</h4>
+                <p class="text-[13px] text-serra-text/50 font-light max-w-[150px] mx-auto">Encrypted safe checkout.</p>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Add custom keyframes block if not defined in Tailwind config -->
+<style>
+@keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+@keyframes slow-pan {
+    0% { transform: scale(1.05) translate(0, 0); }
+    100% { transform: scale(1.1) translate(-2%, 2%); }
+}
+@keyframes fade-in-up {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes scroll-down {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+</style>
 {% endblock %}
